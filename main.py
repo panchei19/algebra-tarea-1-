@@ -71,6 +71,15 @@ def avg(frase):
     s=vectorSentimientos(frase)
     return (s[0]+s[1]+s[2])/(len(palabras_clave["negativas"])+len(palabras_clave["positivas"])+len(palabras_clave["neutrales"]))
 
+def pcj(vector):
+    positivo=0
+    neutro=0
+    negativo=0
+    if((vector[0]+vector[1]+vector[2])!=0):
+        positivo= vector[0]/(vector[0]+vector[1]+vector[2])
+        neutro=vector[1]/(vector[0]+vector[1]+vector[2])
+        negativo=vector[2]/(vector[0]+vector[1]+vector[2])
+    return f"Positivo: {positivo} Neutro: {neutro} Negativo: {negativo}"
 
 def promedioSentimiento(frase):
     fraseSentimientos= vectorSentimientos(frase)
@@ -85,4 +94,4 @@ def promedioSentimiento(frase):
 
 
 for frase in frases:
-    print(frase + " || " + "Calidad promedio: " + str(avg(frase)) + " || Promedio de sentimientos: " + promedioSentimiento(frase)+ " || W: " + str(vectorPalabrasclave(frase)) + " || S:" + str(vectorSentimientos(frase)))
+    print(frase + " || " + "Calidad promedio: " + str(avg(frase)) + " || Promedio de sentimientos: " + promedioSentimiento(frase)+ " || W: " + str(vectorPalabrasclave(frase)) + " || S:" + str(vectorSentimientos(frase)) + " || " + pcj(vectorSentimientos(frase)))
