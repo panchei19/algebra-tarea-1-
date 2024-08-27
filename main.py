@@ -57,9 +57,9 @@ def vectorPalabrasclave(frase):
     for palabra in palabras:
         if palabra in palabras_clave["negativas"]:
             w.append(1)
-        if palabra in palabras_clave["negativas"]:
+        if palabra in palabras_clave["positivas"]:
             w.append(1)
-        if palabra in palabras_clave["negativas"]:
+        if palabra in palabras_clave["neutrales"]:
             w.append(1)
         else: 
             w.append(0)
