@@ -76,8 +76,13 @@ def promedioSentimiento(frase):
     fraseSentimientos= vectorSentimientos(frase)
     a= np.array([1,0,-1])
     b=np.array(fraseSentimientos)
-    return np.dot(a,b)
+    if np.dot(a,b) > 0:
+        return "Positivo"
+    if np.dot(a,b) < 0:
+        return "Negativo"
+    if np.dot(a,b) == 0:
+        return "Neutro"
 
 
 for frase in frases:
-    print(frase + " || " + "Calidad promedio: " + str(avg(frase)) + " || Promedio de sentimientos: " + str(promedioSentimiento(frase))+ " || W: " + str(vectorPalabrasclave(frase)) + " || S:" + str(vectorSentimientos(frase)))
+    print(frase + " || " + "Calidad promedio: " + str(avg(frase)) + " || Promedio de sentimientos: " + promedioSentimiento(frase)+ " || W: " + str(vectorPalabrasclave(frase)) + " || S:" + str(vectorSentimientos(frase)))
