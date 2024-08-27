@@ -92,7 +92,39 @@ def promedioSentimiento(frase):
         return "Negativo"
     if np.dot(a,b) == 0:
         return "Neutro"
+    
+
+def frase_mas_positiva(frases):
+    max_positividad = -float('inf')
+    frase_positiva = ""
+    
+    for frase in frases:
+        valor_sentimiento = np.dot(np.array([1, 0, -1]), np.array(vectorSentimientos(frase)))
+        if valor_sentimiento > max_positividad:
+            max_positividad = valor_sentimiento
+            frase_positiva = frase
+    
+    return frase_positiva
+
+def frase_mas_negativa(frases):
+    max_negatividad = float('inf')
+    frase_negativa = ""
+    
+    for frase in frases:
+        valor_sentimiento = np.dot(np.array([1, 0, -1]), np.array(vectorSentimientos(frase)))
+        if valor_sentimiento < max_negatividad:
+            max_negatividad = valor_sentimiento
+            frase_negativa = frase
+    
+    return frase_negativa
 
 
 for frase in frases:
     print(frase + " || " + "Calidad promedio: " + str(avg(frase)) + " || Promedio de sentimientos: " + promedioSentimiento(frase)+ " || W: " + str(vectorPalabrasclave(frase)) + " || S:" + str(vectorSentimientos(frase)) + " || " + pcj(vectorSentimientos(frase)))
+
+
+frase_positiva = frase_mas_positiva(frases)
+frase_negativa = frase_mas_negativa(frases)
+
+print(f"La frase más positiva es: '{frase_positiva}'")
+print(f"La frase más negativa es: '{frase_negativa}'")
