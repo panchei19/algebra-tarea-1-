@@ -38,7 +38,7 @@ palabras_clave = {
 
 
 
-def vector(frase):
+def vectorSentimientos(frase):
     # Usar re para eliminar los signos de puntuación y luego hacer el split
     palabras = re.sub(r'[.,]', '', frase).split()
     s=[0,0,0]
@@ -51,19 +51,33 @@ def vector(frase):
             s[2]+=1
     return s
 
+def vectorPalabrasclave(frase):
+    palabras = re.sub(r'[.,]', '', frase).split()
+    w=[]
+    for palabra in palabras:
+        if palabra in palabras_clave["negativas"]:
+            w.append(1)
+        if palabra in palabras_clave["negativas"]:
+            w.append(1)
+        if palabra in palabras_clave["negativas"]:
+            w.append(1)
+        else: 
+            w.append(0)
+    return w
 
 
-def avg(w):
-    s=vector(w)
-    print(s)
-    return (s[0]+s[1]+s[2])/len(w.split())
+#CALIDAD PROMEDIO
+def avg(frase):      
+    s=vectorSentimientos(frase)
+    return (s[0]+s[1]+s[2])/(len(palabras_clave["negativas"])+len(palabras_clave["positivas"])+len(palabras_clave["neutrales"]))
 
-def promedioSentimiento(s):
+
+def promedioSentimiento(frase):
+    fraseSentimientos= vectorSentimientos(frase)
     a= np.array([1,0,-1])
-    b=np.array(s)
+    b=np.array(fraseSentimientos)
     return np.dot(a,b)
 
 
 for frase in frases:
-    print(frase,avg(frase))
-    print(promedioSentimiento(vector(frase)))
+    print(frase + " || " + "Calidad promedio: " + str(avg(frase)) + " || Promedio de sentimientos: " + str(promedioSentimiento(frase))+ " || W: " + str(vectorPalabrasclave(frase)) + " || S:" + str(vectorSentimientos(frase)))
