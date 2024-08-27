@@ -67,6 +67,7 @@ def vectorPalabrasclave(frase):
 
 
 #CALIDAD PROMEDIO
+
 def avg(frase):      
     s=vectorSentimientos(frase)
     return (s[0]+s[1]+s[2])/(len(palabras_clave["negativas"])+len(palabras_clave["positivas"])+len(palabras_clave["neutrales"]))
