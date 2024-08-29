@@ -1,5 +1,6 @@
 import numpy as np
 import re
+import pandas as pd
 
 frases = [
     "Me siento muy feliz con mi progreso este mes.",
@@ -80,7 +81,7 @@ def pcj(vector):
         positivo= vector[0]/(vector[0]+vector[1]+vector[2])
         neutro=vector[1]/(vector[0]+vector[1]+vector[2])
         negativo=vector[2]/(vector[0]+vector[1]+vector[2])
-    return f"Positivo: {positivo} Neutro: {neutro} Negativo: {negativo}"
+    return [positivo, neutro, negativo]
 
 def promedioSentimiento(frase):
     fraseSentimientos= vectorSentimientos(frase)
@@ -119,12 +120,36 @@ def frase_mas_negativa(frases):
     return frase_negativa
 
 
-for frase in frases:
-    print(frase + " || " + "Calidad promedio: " + str(avg(frase)) + " || Promedio de sentimientos: " + promedioSentimiento(frase)+ " || W: " + str(vectorPalabrasclave(frase)) + " || S:" + str(vectorSentimientos(frase)) + " || " + pcj(vectorSentimientos(frase)))
 
+
+frasesImprimir = []
+calidad = []
+positiva = []
+neutra = []
+negativa = []
+
+datos = {
+    "Frase": frasesImprimir,
+    "Calidad promedio": calidad,
+    "positiva": positiva,
+    "neutra": neutra,
+    "negativa": negativa
+}
+
+for frase in frases:
+    frasesImprimir.append(frase)
+    calidad.append(avg(frase))
+    positiva.append(pcj(vectorSentimientos(frase))[0])
+    neutra.append(pcj(vectorSentimientos(frase))[1])
+    negativa.append(pcj(vectorSentimientos(frase))[2])
+    #print(frase + " || " + "Calidad promedio: " + str(avg(frase)) + " || Promedio de sentimientos: " + promedioSentimiento(frase)+ " || W: " + str(vectorPalabrasclave(frase)) + " || S:" + str(vectorSentimientos(frase)) + " || " + pcj(vectorSentimientos(frase)))
+
+df = pd.DataFrame(datos)
+print(df)
 
 frase_positiva = frase_mas_positiva(frases)
 frase_negativa = frase_mas_negativa(frases)
 
+print(" ")
 print(f"La frase más positiva es: '{frase_positiva}'")
 print(f"La frase más negativa es: '{frase_negativa}'")
